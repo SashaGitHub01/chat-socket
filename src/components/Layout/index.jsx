@@ -5,7 +5,7 @@ const Layout = ({ children }) => {
    return (
       <>
          <div
-            className={`max-w-[1250px] mx-auto bg-grey_light w-full h-full 
+            className={`max-w-[1280px] mx-auto bg-grey_light w-full h-full 
             flex-auto relative flex flex-col`}
          >
             <div className="flex flex-auto">

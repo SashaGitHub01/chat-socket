@@ -1,5 +1,6 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { UsersService } from '../../api/UsersService';
+import { socket } from "../../socket";
 
 export const setTheme = createAction('auth/setTheme');
 
@@ -14,6 +15,8 @@ export const fetchAuth = createAsyncThunk(
          };
 
          const res = await UsersService.auth();
+
+         if (res) socket.emit('USER:ONLINE', res.id)
 
          return res;
       } catch (err) {

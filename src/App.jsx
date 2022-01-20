@@ -4,10 +4,13 @@ import AppRoute from './components/AppRoute/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAuth } from './store/actionCreators/authAC'
 import Login from './pages/Login';
+import { Route, Routes, useNavigate } from 'react-router';
+import { socket } from './socket';
 
 function App() {
+   const nav = useNavigate();
    const dispatch = useDispatch()
-   const { isInitialized, isAuth, theme } = useSelector(state => state.auth);
+   const { isInitialized, isAuth, theme, user } = useSelector(state => state.auth);
 
    useEffect(() => {
       if (theme && isInitialized) {
@@ -19,15 +22,27 @@ function App() {
       dispatch(fetchAuth())
    }, [])
 
+   useEffect(() => {
+      if (isAuth && isInitialized) {
+         nav('/dialogs');
+      }
+
+      if (!isAuth && isInitialized) {
+         nav('/login')
+      }
+   }, [isAuth, isInitialized])
+
    return (
       <>
          {isInitialized
             ? <>
                {isAuth
                   ? <Layout>
-                     <AppRoute />
+                     <AppRoute isAuth={isAuth} />
                   </Layout>
-                  : <Login />}
+                  : <Routes>
+                     <Route path='/login' element={<Login />} />
+                  </Routes>}
             </>
             : null}
       </>

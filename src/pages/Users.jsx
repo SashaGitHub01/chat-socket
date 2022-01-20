@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers } from "../store/actionCreators/usersAC";
 import Loader from '../components/Loader'
-import UsersItem from "../components/Messages/UsersItem";
+import UsersItem from "../components/Users/UsersItem";
 
 const Users = () => {
    const dispatch = useDispatch()

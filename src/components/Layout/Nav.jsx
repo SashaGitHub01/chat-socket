@@ -1,15 +1,17 @@
 import { Logout, Message, Sun, Users } from '../../assets/icons';
 import logo from '../../assets/logo.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchLogout, setTheme } from '../../store/actionCreators/authAC';
 
 const Nav = () => {
    const dispatch = useDispatch();
    const theme = useSelector(state => state.auth.theme)
+   const nav = useNavigate();
 
    const handleLogout = () => {
       dispatch(fetchLogout())
+      nav('/login')
    }
 
    const changeTheme = (th) => {

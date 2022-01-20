@@ -10,6 +10,7 @@ import ChatForm from "./ChatForm"
 import ChatList from "./ChatList"
 
 const Chat = ({ sel, me, user }) => {
+   const [isOnline, setIsOnline] = useState(false);
    const dispatch = useDispatch()
    const nav = useNavigate();
 
@@ -25,7 +26,13 @@ const Chat = ({ sel, me, user }) => {
 
    useEffect(() => {
       socket.on('MESSAGE:ADD', addNewMsg)
+      socket.on('USER:OFFLINE', () => setIsOnline(false))
+      socket.on('USER:SET_ONLINE', () => setIsOnline(true))
    }, [])
+
+   useEffect(() => {
+      if (user) socket.emit('USER:CHECK', user.id, (res) => setIsOnline(res))
+   }, [user])
 
    useEffect(() => {
       if (sel) {
@@ -47,7 +54,7 @@ const Chat = ({ sel, me, user }) => {
                            {user.username}
                         </span>
                         <div
-                           className={`w-[8px] h-[8px] ${user.isOnline ? 'bg-emerald-400' : 'bg-red-500'} 
+                           className={`w-[8px] h-[8px] ${isOnline ? 'bg-emerald-400' : 'bg-red-500'} 
                         rounded-full shadow-sm`}
                         />
                      </div>

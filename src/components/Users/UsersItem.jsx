@@ -10,7 +10,7 @@ const UsersItem = ({ item }) => {
    }
 
    return (
-      <div className="bg-white rounded-lg px-4 py-6 shadow-md">
+      <div className="bg-grey_light rounded-lg px-4 py-6 shadow-md">
          <div className="flex items-center">
             <div className="shrink-0 grow-0 basis-[70px] mr-3">
                <img src={item.avatar} alt="ava" className="max-w-full rounded-[50%] shadow-avatar" />
